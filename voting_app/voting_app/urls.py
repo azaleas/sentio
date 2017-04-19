@@ -19,7 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v1/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api/v1/', include('polls.api.urls', namespace='api'))
 ]
 
 if settings.DEBUG:
