@@ -27,7 +27,7 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     question = models.ForeignKey(Question, related_name='votes', on_delete=models.CASCADE)
-    vote_author = models.ForeignKey(User, related_name='votes', blank=True)
+    vote_author = models.ForeignKey(User, related_name='votes', blank=True, null=True)
     voter_ip = models.GenericIPAddressField(blank=True, null=True, db_index=True)
     choice = models.ForeignKey(Choice, related_name='votes')
     created_date = models.DateTimeField(auto_now_add=True)

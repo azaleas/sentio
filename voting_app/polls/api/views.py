@@ -1,14 +1,18 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+from django.db.models import Q
+
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from ..models import Question, Choice 
+from ipware.ip import get_ip
+
+from ..models import Question, Choice, Vote
 from .serializers import QuestionSerializer, \
 VoteSerializer, ChoicesSerializerWithVote, ChoicesSerializerWithoutVote
 
-class PollsViewSet(viewsets.ModelViewSet):
+class PollsViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Viewset that provides the standart actions for Polls
     """
@@ -33,10 +37,42 @@ class PollsViewSet(viewsets.ModelViewSet):
             if vote_serialized.is_valid():
                 choicepk = vote_serialized.data['choice']
                 questionpk = vote_serialized.data['question']
-                choice = get_object_or_404(Choice, id=choicepk, question=questionpk)
-                if not choice:
-                    return Response(choice)
+                try:
+                    choice = Choice.objects.get(id=choicepk, question=questionpk)
+                # 404
+                except:
+                    return Response({"detail": "Question doesnt have this choice."}, 
+                                    status=status.HTTP_404_NOT_FOUND)
+
+                #Check if the user/ip is voted before
+
+                ip = get_ip(request)
+                if request.user.is_authenticated:
+                    user = request.user
                 else:
+                    user = None
+
+                try:
+                    vote = Vote.objects.get(
+                        Q(question=questionpk),
+                        Q(vote_author=user) | Q(voter_ip=ip)
+                    )
+
+                except Vote.DoesNotExist:
+                    vote = None
+
+                if vote:
+                    return Response({"detail": "You already voted."},
+                            status=status.HTTP_403_FORBIDDEN)
+                else:
+                    # Increase vote count
                     choice.vote += 1
-                    choice.save()
+                    choice.save() 
+                    vote = Vote.objects.create(
+                        question = question,
+                        vote_author = user,
+                        voter_ip = ip,
+                        choice = choice
+                    )
+
                 return Response({'data': vote_serialized.data}) 
