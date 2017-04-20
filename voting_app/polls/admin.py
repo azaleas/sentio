@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Choice
+from .models import Question, Choice, Vote
 
 # Register your models here.
 
@@ -14,3 +14,9 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
 admin.site.register(Question, QuestionAdmin)
+
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ['question', 'vote_author', 'voter_ip', 'choice', 'created_date']
+    list_filter = ['created_date']
+
+admin.site.register(Vote, VoteAdmin)

@@ -24,7 +24,6 @@ def get_secret(the_secret, debugging):
     as an attached file. The main goal of this is that this file should
     not be viewable by no one except us or our team.
     """
-    print(os.path.join(BASE_DIR, 'settings', 'secrets.json'))
     try:
         secrets_file = os.path.join(BASE_DIR, 'settings', 'secrets.json')
 
