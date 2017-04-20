@@ -1,2 +1,5 @@
 Django==1.11
+django-debug-toolbar==1.7
+djangorestframework==3.6.2
 pytz==2017.2
+sqlparse==0.2.3
