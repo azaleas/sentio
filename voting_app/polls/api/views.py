@@ -3,24 +3,37 @@ from django.db.models import Q
 
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.decorators import detail_route
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated , AllowAny
+from rest_framework.decorators import detail_route, list_route
 from ipware.ip import get_ip
 
 from ..models import Question, Choice, Vote
 from .serializers import QuestionSerializer, \
 VoteSerializer, ChoicesSerializerWithVote, ChoicesSerializerWithoutVote
+from .permissions import IsAuthenticatedCustom
 
-class PollsViewSet(viewsets.ReadOnlyModelViewSet):
+class PollsViewSet(viewsets.ModelViewSet):
     """
     Viewset that provides the standart actions for Polls
     """
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_classes=[IsAuthenticatedCustom, ]
 
+    def create(self, request, *args, **kwargs):
+        return Response('asd')
 
-    @detail_route(methods=['get', 'post'], serializer_class=VoteSerializer)
+    @list_route(methods=['get'], 
+                permission_classes=[IsAuthenticatedCustom,])
+    def mypolls(self, request):
+        question = Question.objects.filter(author=self.request.user)
+        question_serialized = QuestionSerializer(question, many=True)
+        return Response(question_serialized.data)
+
+    @detail_route(methods=['get', 'post'], 
+                serializer_class=VoteSerializer,
+                permission_classes=[AllowAny,])
     def vote(self, request, pk):
         """
         Vote for a given queastion
