@@ -10,7 +10,7 @@ from ipware.ip import get_ip
 
 from ..models import Question, Choice, Vote
 from .serializers import QuestionSerializer, \
-VoteSerializer, ChoicesSerializerWithVote, ChoicesSerializerWithoutVote
+VoteSerializer
 from .permissions import IsAuthenticatedCustom
 
 class PollsViewSet(viewsets.ModelViewSet):
@@ -28,9 +28,10 @@ class PollsViewSet(viewsets.ModelViewSet):
             return Response('You forgot to add choices')
         serializer = QuestionSerializer(data=request.data)
         if serializer.is_valid():
-            print('caz\n', serializer)
             serializer.save(author = request.user)
 
+
+    # Individual user polls/questions
     @list_route(methods=['get'], 
                 permission_classes=[IsAuthenticatedCustom,])
     def mypolls(self, request):

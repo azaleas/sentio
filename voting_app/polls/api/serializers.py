@@ -4,15 +4,15 @@ from ..models import Question, Choice, Vote
 
 class ChoicesSerializerWithVote(serializers.ModelSerializer):
 
+    choice_id = serializers.ModelField(
+                    model_field=Choice()._meta.get_field('id'),
+                    required=False
+                )
+
     class Meta:
         model = Choice
-        fields = ['choice_text', 'vote']
+        fields = ['choice_id', 'choice_text', 'vote']
 
-class ChoicesSerializerWithoutVote(serializers.ModelSerializer):
-
-    class Meta:
-        model = Choice
-        fields = ['choice_text']
 
 class QuestionSerializer(serializers.ModelSerializer):
 
@@ -29,12 +29,23 @@ class QuestionSerializer(serializers.ModelSerializer):
             Choice.objects.create(question=question, **choice)
         return question
 
-class VoteSerializer(serializers.ModelSerializer):
+    def update(self, instance, validated_data):
+        choices = validated_data['choices']
+        instance.question_text = validated_data['question_text']
+        instance.save()
+        # Only create new choices, dont update existing ones
+        for choice in choices:
+            try:
+                choice_id = choice['choice_id']
+            except:
+                Choice.objects.create(
+                    question = instance,
+                    choice_text = choice['choice_text']
+                )
+        return instance
 
-    # question = QuestionSerializer()
-    # choice = ChoicesSerializer()
+class VoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vote
         fields = ['question', 'choice',]
-        # read_only = ['question', 'choice',]
