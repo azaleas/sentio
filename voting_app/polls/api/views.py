@@ -22,7 +22,14 @@ class PollsViewSet(viewsets.ModelViewSet):
     permission_classes=[IsAuthenticatedCustom, ]
 
     def create(self, request, *args, **kwargs):
-        return Response('asd')
+        try:
+            choices = request.data['choices']
+        except:
+            return Response('You forgot to add choices')
+        serializer = QuestionSerializer(data=request.data)
+        if serializer.is_valid():
+            print('caz\n', serializer)
+            serializer.save(author = request.user)
 
     @list_route(methods=['get'], 
                 permission_classes=[IsAuthenticatedCustom,])
