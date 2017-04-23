@@ -3,7 +3,6 @@ from django.db.models import Q
 
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.decorators import detail_route, list_route
 from ipware.ip import get_ip
@@ -17,9 +16,10 @@ class PollsViewSet(viewsets.ModelViewSet):
     """
     Viewset that provides the standart actions for Polls
     """
+    permission_classes=[IsAuthenticatedCustom, ]
+
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-    permission_classes=[IsAuthenticatedCustom, ]
 
     def create(self, request, *args, **kwargs):
         try:
