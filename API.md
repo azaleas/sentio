@@ -131,7 +131,13 @@
 	         }
 	     ]
 	}
-
+	
+## Example Response
+	HTTP 200 OK
+	
+	{
+		"New Question created"
+	}
     
 # Update A Question
 
