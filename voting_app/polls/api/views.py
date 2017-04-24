@@ -29,19 +29,22 @@ class PollsViewSet(viewsets.ModelViewSet):
     """
     Viewset that provides the standart actions for Polls
     """
-    permission_classes=[IsAuthenticatedCustom, ]
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_classes=[IsAuthenticatedCustom, ]
 
     def create(self, request, *args, **kwargs):
+        if not request.data['question_text']:
+            return Response('You forgot to add a question')
         try:
             choices = request.data['choices']
         except:
             return Response('You forgot to add choices')
         serializer = QuestionSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(author = request.user)
+            new_question = serializer.save(author = request.user)
+        return Response('New Question created')
 
 
     # Individual user polls/questions
