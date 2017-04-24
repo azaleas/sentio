@@ -79,6 +79,39 @@
 	        "choice": choice_pk
 	    }
 	}
+	
+
+# List My Polls
+
+ * URL: /api/v1/polls/mypolls
+ * HTTP Method: GET
+ 
+## Example Response
+
+    [
+	    {
+	        "question_text": "Docker vs Vagrant?",
+	        "choices": [
+	            {
+	                "choice_id": 15,
+	                "choice_text": "Vagrant",
+	                "vote": 0
+	            },
+	            {
+	                "choice_id": 16,
+	                "choice_text": "Docker",
+	                "vote": 0
+	            },
+	            {
+	                "choice_id": 17,
+	                "choice_text": "Other",
+	                "vote": 0
+	            },
+	            ...
+	        ]
+	    },  
+	    ...
+	]
 
 # Add A Question
 
