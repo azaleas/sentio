@@ -7,10 +7,23 @@ from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.decorators import detail_route, list_route
 from ipware.ip import get_ip
 
+# For twitter
+from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
+from rest_auth.views import LoginView
+from rest_auth.social_serializers import TwitterLoginSerializer
+
 from ..models import Question, Choice, Vote
 from .serializers import QuestionSerializer, \
 VoteSerializer
 from .permissions import IsAuthenticatedCustom
+
+
+class TwitterLogin(LoginView):
+    """
+    Twitter OAuth View/django-rest-auth
+    """
+    serializer_class = TwitterLoginSerializer
+    adapter_class = TwitterOAuthAdapter
 
 class PollsViewSet(viewsets.ModelViewSet):
     """

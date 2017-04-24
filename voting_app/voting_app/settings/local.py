@@ -3,7 +3,7 @@ from .base import *  # We import everything we have previously set up on base.py
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
  
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.votingapp.com', 'localhost', '127.0.0.1', '[::1]'] 
  
 # Database
 DATABASES = {
@@ -15,6 +15,10 @@ DATABASES = {
  
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret('SECRET_KEY', DEBUG)
+
+# Dev Email
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
  
 #########################################################
 # Activate django-debug-toolbar if it is installed
