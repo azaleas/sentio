@@ -102,6 +102,8 @@
     
 # Update A Question
 
+Only cad add new choices and update question text
+
  * URL: /api/v1/polls/\<pk\>/
  * HTTP Method: PATCH
  
@@ -111,19 +113,7 @@
 	    "question_text": "Docker vs Vagrant?",
 	    "choices": [
 	        {
-	            "choice_id": 16,
-	            "choice_text": "Docker",
-	            "vote": 1
-	        },
-	        {
-	            "choice_id": 15,
-	            "choice_text": "Vagrant",
-	            "vote": 0
-	        },
-	        {
-	            "choice_id": 17,
-	            "choice_text": "Other",
-	            "vote": 0
+	            "choice_text": "Both"
 	        }
 	    ]
 	}
@@ -147,6 +137,11 @@
 	        {
 	            "choice_id": 17,
 	            "choice_text": "Other",
+	            "vote": 0
+	        },
+			{
+	            "choice_id": 18,
+	            "choice_text": "Both",
 	            "vote": 0
 	        },
 	    ]
