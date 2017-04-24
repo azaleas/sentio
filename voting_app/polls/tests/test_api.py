@@ -147,5 +147,34 @@ class PollsAPITestCase(APITestCase):
         with self.assertRaises(IndexError):
             response.data[1]
 
+    def test_create_new_poll(self):
+        """
+        Test if we can create a new poll
+        """
+        self.login()
+        post_data = {
+            "question_text": "Test me?",
+            "choices": [
+                {"choice_text": "test1"},
+                {"choice_text": "test2"}
+            ]
+        }
+
+        response = self.client.post(
+            '/api/v1/polls/', 
+            data=post_data,
+            format='json'
+        )
+
+        self.assertEqual(response.data, "New Question created")
+        question = Question.objects.latest('id')
+        choices = Choice.objects.filter(question=question)
+        self.assertEqual(question.id, 3)
+        self.assertEqual(question.question_text, "Test me?")
+        self.assertEqual(len(choices), 2)
+        
+
+
+
 
 
