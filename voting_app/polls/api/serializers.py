@@ -12,6 +12,7 @@ class ChoicesSerializerWithVote(serializers.ModelSerializer):
     class Meta:
         model = Choice
         fields = ['choice_id', 'choice_text', 'vote']
+        read_only_fields = ['vote']
 
 
 class QuestionSerializer(serializers.ModelSerializer):
