@@ -1,6 +1,14 @@
+defusedxml==0.5.0
 Django==1.11
+django-allauth==0.31.0
 django-debug-toolbar==1.7
 django-ipware==1.1.6
+django-rest-auth==0.9.1
 djangorestframework==3.6.2
+oauthlib==2.0.2
+python3-openid==3.1.0
 pytz==2017.2
+requests==2.13.0
+requests-oauthlib==0.8.0
+six==1.10.0
 sqlparse==0.2.3
