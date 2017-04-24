@@ -36,6 +36,7 @@ for provider in providers.registry.get_list():
     providers_urlpatterns += getattr(prov_mod, 'urlpatterns', [])
 
 urlpatterns = [
+    url(r'^api/v1/', include('polls.api.urls', namespace='api')),
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include(providers_urlpatterns)),
     url(r'^rest-auth/', include('rest_auth.urls')),
@@ -51,7 +52,6 @@ urlpatterns = [
     url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         TemplateView.as_view(template_name="password_reset_confirm.html"),
         name='password_reset_confirm'),
-    url(r'^api/v1/', include('polls.api.urls', namespace='api'))
 ]
 
 if settings.DEBUG:
