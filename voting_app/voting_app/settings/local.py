@@ -4,6 +4,8 @@ from .base import *  # We import everything we have previously set up on base.py
 DEBUG = True
  
 ALLOWED_HOSTS = ['.votingapp.com', 'localhost', '127.0.0.1', '[::1]'] 
+
+MIDDLEWARE.append('voting_app.middleware.dev_cors_middleware')
  
 # Database
 DATABASES = {
