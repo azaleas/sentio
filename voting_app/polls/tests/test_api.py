@@ -173,6 +173,30 @@ class PollsAPITestCase(APITestCase):
         self.assertEqual(question.question_text, "Test me?")
         self.assertEqual(len(choices), 2)
         
+    def test_update_poll(self):
+        """
+        Test if we can update the poll. We should update only the question text
+        and have ability to add new choice. Existing choices can not be edited.
+        """
+        self.login()
+
+        question = Question.objects.first()
+
+        put_data = {
+            'question_text': 'Question title updated?',
+            'choices': [
+                {'choice_text': 'New choice'}
+            ]
+        }
+
+        response = self.client.put(
+            '/api/v1/polls/{}/'.format(question.id), 
+            put_data,
+            format='json'
+        )
+
+        self.assertEqual(response.data['question_text'], 'Question title updated?')
+        self.assertEqual(response.data['choices'][2]['choice_text'], 'New choice')
 
 
 
