@@ -186,6 +186,11 @@ Only cad add new choices and update question text
 	    ]
 	}
 
+# Delete a question
+
+ * URL: /api/v1/polls/\<pk\>/
+ * HTTP Method: DELETE
+ 
 #Authentication
 http://django-rest-auth.readthedocs.io/en/latest/api_endpoints.html
 
