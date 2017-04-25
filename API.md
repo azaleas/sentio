@@ -144,7 +144,7 @@
 Only cad add new choices and update question text
 
  * URL: /api/v1/polls/\<pk\>/
- * HTTP Method: PATCH
+ * HTTP Method: PUT
  
 ## Example Request
 
