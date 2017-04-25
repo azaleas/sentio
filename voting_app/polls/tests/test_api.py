@@ -76,6 +76,40 @@ class PollsAPITestCase(APITestCase):
         self.assertEqual(choice.vote, 1)
         return vote
 
+    def create_new_poll(self):
+        post_data = {
+            "question_text": "Test me?",
+            "choices": [
+                {"choice_text": "test1"},
+                {"choice_text": "test2"}
+            ]
+        }
+
+        response = self.client.post(
+            '/api/v1/polls/', 
+            data=post_data,
+            format='json'
+        )
+
+        return response
+
+    def update_poll(self):
+        question = Question.objects.first()
+
+        put_data = {
+            'question_text': 'Question title updated?',
+            'choices': [
+                {'choice_text': 'New choice'}
+            ]
+        }
+
+        response = self.client.put(
+            '/api/v1/polls/{}/'.format(question.id), 
+            put_data,
+            format='json'
+        )
+        return response
+
     def test_list_polls(self):
         """
         Test that we can get the list of polls
@@ -152,19 +186,7 @@ class PollsAPITestCase(APITestCase):
         Test if we can create a new poll
         """
         self.login()
-        post_data = {
-            "question_text": "Test me?",
-            "choices": [
-                {"choice_text": "test1"},
-                {"choice_text": "test2"}
-            ]
-        }
-
-        response = self.client.post(
-            '/api/v1/polls/', 
-            data=post_data,
-            format='json'
-        )
+        response = self.create_new_poll()
 
         self.assertEqual(response.data, "New Question created")
         question = Question.objects.latest('id')
@@ -172,6 +194,13 @@ class PollsAPITestCase(APITestCase):
         self.assertEqual(question.id, 3)
         self.assertEqual(question.question_text, "Test me?")
         self.assertEqual(len(choices), 2)
+
+    def test_cant_create_new_poll_if_not_authenticated(self):
+        """
+        Test if we cant create a new poll if not authenticated
+        """
+        response = self.create_new_poll()
+        self.assertEqual(response.status_code, 403)
         
     def test_update_poll(self):
         """
@@ -180,7 +209,21 @@ class PollsAPITestCase(APITestCase):
         """
         self.login()
 
-        question = Question.objects.first()
+        response = self.update_poll()
+
+        self.assertEqual(response.data['question_text'], 'Question title updated?')
+        self.assertEqual(response.data['choices'][2]['choice_text'], 'New choice')
+
+    def test_cant_update_poll_if_not_authenticated(self):
+
+        response = self.update_poll()
+        self.assertEqual(response.status_code, 403)
+
+    def test_cant_update_others_polls(self):
+
+        self.login()
+
+        question = Question.objects.latest('id')
 
         put_data = {
             'question_text': 'Question title updated?',
@@ -195,10 +238,6 @@ class PollsAPITestCase(APITestCase):
             format='json'
         )
 
-        self.assertEqual(response.data['question_text'], 'Question title updated?')
-        self.assertEqual(response.data['choices'][2]['choice_text'], 'New choice')
-
-
-
+        self.assertEqual(response.status_code, 403)
 
 
