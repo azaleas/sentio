@@ -39,6 +39,9 @@ class PollsAPITestCase(APITestCase):
             choice_text = "You",
         )
 
+
+    # HELPER FUNCTIONS
+
     def login(self):
         self.client.login(
             username="testuser",
@@ -109,6 +112,26 @@ class PollsAPITestCase(APITestCase):
             format='json'
         )
         return response
+
+    def delete_poll(self):
+        
+        question = Question.objects.first()
+        
+        question_text = question.question_text
+
+        response = self.client.delete(
+            '/api/v1/polls/{}/'.format(question.id)
+        )
+
+        data = {
+            'response': response, 
+            'question_text': question_text
+        }
+
+        return data
+
+
+    # TEST FUNCTIONS
 
     def test_list_polls(self):
         """
@@ -240,4 +263,33 @@ class PollsAPITestCase(APITestCase):
 
         self.assertEqual(response.status_code, 403)
 
+    def test_delete_poll(self):
 
+        self.login()
+        
+        data = self.delete_poll()
+
+        response = data['response']
+        question_text = data['question_text']
+
+        self.assertEqual(response.status_code, 204)
+
+        question = Question.objects.first()
+        self.assertNotEqual(question.question_text, question_text)
+
+    def test_cant_delete_poll_if_not_authenticated(self):
+
+        data = self.delete_poll()
+        response = data['response']
+        self.assertEqual(response.status_code, 403)
+
+    def test_cant_delete_others_poll(self):
+
+        self.login()
+        
+        question = Question.objects.latest('id')
+        response = self.client.delete(
+            '/api/v1/polls/{}/'.format(question.id)
+        )
+
+        self.assertEqual(response.status_code, 403)
