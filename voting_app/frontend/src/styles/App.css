@@ -1,7 +1,7 @@
 .app-wrapper {
     height: calc(87% - 1em);
     height: calc(87vh - 1em);
-    overflow: hidden;
+    overflow: auto;
     position: relative;
 }
 
@@ -12,4 +12,17 @@
 
 .ui.loader:after {
     border-color: #21BA45 transparent transparent !important;
+}
+
+.poll-single {
+    margin: 1em !important;
+    color: #000 !important;
+    -webkit-transition: all 0.2s linear;
+       -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+         -o-transition: all 0.2s linear;
+            transition: all 0.2s linear;
+}
+.poll-single:hover {
+    color: #21BA45 !important;
 }
