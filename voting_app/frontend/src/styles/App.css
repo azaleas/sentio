@@ -1,11 +1,13 @@
 .app-wrapper {
-    height: 90%;
-    height: 90vh;
+    height: calc(87% - 1em);
+    height: calc(87vh - 1em);
+    overflow: hidden;
+    position: relative;
 }
 
 .app-label span{
-    padding: 0em 2em;
-    font-size: 1.5em;
+    margin: 0em 2em;
+    font-size: 1.35em;
 }
 
 .ui.loader:after {
