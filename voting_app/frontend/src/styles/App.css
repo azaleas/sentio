@@ -1,0 +1,13 @@
+.app-wrapper {
+    height: 90%;
+    height: 90vh;
+}
+
+.app-label span{
+    padding: 0em 2em;
+    font-size: 1.5em;
+}
+
+.ui.loader:after {
+    border-color: #21BA45 transparent transparent !important;
+}
