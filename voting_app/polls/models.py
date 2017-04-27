@@ -19,9 +19,6 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     vote = models.PositiveIntegerField(db_index=True, default=0)
 
-    class Meta:
-        ordering = ['-vote']
-
     def __str__(self):
         return self.choice_text
 
