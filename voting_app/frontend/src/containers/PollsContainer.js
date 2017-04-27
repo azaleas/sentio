@@ -44,7 +44,8 @@ class PollsContainer extends Component {
                 <div>
                     <Polls 
                         polls={this.state.polls}
-                        path={this.props.location.pathname}/>
+                        path={this.props.location.pathname}
+                     />
                 </div>
             )
         );

@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
+    "chart.js": "^2.5.0",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
+    "react-chartjs-2": "^2.0.5",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",
-    "semantic-ui": "^2.2.10"
+    "semantic-ui": "^2.2.10",
+    "universal-cookie": "^2.0.5"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import api from './../utils/api';
 
 import NotFound from './../components/NotFound';
+import Poll from './../components/Poll';
+
 
 class PollContainer extends Component {
 
@@ -11,8 +13,10 @@ class PollContainer extends Component {
         super(props);
         this.state = {
             poll: [],
+            totalVotes: 0,
             fetched: false,
             isError: false,
+            voted: false,
         }
     }
 
@@ -20,9 +24,9 @@ class PollContainer extends Component {
         this.getPoll();
     }
 
-    getPoll() {
-        let questionId = this.props.match.params.questionId;
-        api.fetchSinglePoll(questionId)
+    getPoll = () => {
+        this.questionId = this.props.match.params.questionId;
+        api.fetchSinglePoll(this.questionId)
             .then((poll) => {
                 if (poll === 404){
                     this.setState({
@@ -31,15 +35,53 @@ class PollContainer extends Component {
                     });
                 }
                 else{
+                    let totalVotes = 0;
+                    poll.choices.forEach((el, index) => {
+                        totalVotes+=el.vote;
+                    });
                     this.setState({
                         fetched: true,
                         poll,
+                        totalVotes,
                     });
                 }
             });
     }
 
+    onVoteSelectChange = (event) => {
+        this.choiceId = event.target.value;
+    }
+
+    onVote = (event) => {
+        if(!this.state.voted){
+            if(typeof this.choiceId === "undefined"){
+                this.choiceId = this.state.poll.choices[0].choice_id;
+            }
+            this.setState({
+                totalVotes: this.state.totalVotes+1,
+            });
+            api.postVote(this.questionId, this.choiceId)
+                .then((response) => {
+                    if(response === 403){
+                        this.setState({
+                            voted: true,
+                            totalVotes: this.state.totalVotes-1,
+                        });
+                    }
+                    else{
+                        api.fetchSinglePoll(this.questionId)
+                            .then((poll) => {
+                                this.setState({
+                                    poll,
+                                });
+                            })
+                    }
+                })
+        }
+    }
+
     render() {
+        console.log(this.state.poll);
         return (
             !this.state.fetched
             ?(
@@ -51,7 +93,13 @@ class PollContainer extends Component {
                 !this.state.isError
                 ?(
                     <div>
-                        Stoped here!!!
+                        <Poll 
+                            poll={this.state.poll}
+                            totalVotes={this.state.totalVotes}
+                            onVoteSelectChange={this.onVoteSelectChange}
+                            onVote={this.onVote}
+                            voted={this.state.voted}
+                        />
                     </div>
                 )
                 :(

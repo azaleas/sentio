@@ -1,6 +1,10 @@
+#root {
+    height: 97%;
+    height: 97vh;
+}
 .app-wrapper {
-    height: calc(87% - 1em);
-    height: calc(87vh - 1em);
+    height: calc(87% - 2em);
+    height: calc(87vh - 2em);
     overflow: auto;
     position: relative;
 }
@@ -25,4 +29,20 @@
 }
 .poll-single:hover {
     color: #21BA45 !important;
+}
+
+.poll-selectwrapper {
+    margin: auto !important;
+}
+
+.poll-selectwrapper .row{
+    padding-bottom: 0 !important;
+}
+
+#choiceSelect {
+    min-width: 250px;
+}
+
+.chart-wrapper {
+    width: 80% !important;
 }

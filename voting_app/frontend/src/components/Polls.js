@@ -21,6 +21,8 @@ const Polls = (props) => (
 
 Polls.propTypes = {
     className: PropTypes.string,
+    path: PropTypes.string,
+    polls: PropTypes.array,
 };
 
 export default Polls;
