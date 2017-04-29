@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import api from './../utils/api';
+import {api} from './../utils/Api';
 
 import Polls from './../components/Polls';
 import NotFound from './../components/NotFound';
