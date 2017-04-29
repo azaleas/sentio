@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import api from './../utils/api';
 
 import Polls from './../components/Polls';
+import NotFound from './../components/NotFound';
 
 class PollsContainer extends Component {
     
@@ -14,21 +15,37 @@ class PollsContainer extends Component {
 
         this.state = {
             fetched: false,
+            isError: false,
             polls: [],
         }
     }
 
+    componentWillUnmount() {
+        clearInterval(this.pollsDataTimer);
+    }
+
     componentDidMount() {
         this.getPolls();
+        this.pollsDataTimer = setInterval(() => {
+            this.getPolls();
+        }, 5000);
     }
 
     getPolls() {
         api.fetchAllPolls()
             .then((polls) => {
-                this.setState({
-                    fetched: true,
-                    polls,
-                });
+                if (polls === 404){
+                    this.setState({
+                        fetched: true,
+                        isError: true,
+                    });
+                }
+                else{
+                    this.setState({
+                        fetched: true,
+                        polls,
+                    });
+                }
             });
     }
 
@@ -41,12 +58,18 @@ class PollsContainer extends Component {
                 </div>
             )
             :(
-                <div>
-                    <Polls 
-                        polls={this.state.polls}
-                        path={this.props.location.pathname}
-                     />
-                </div>
+                !this.state.isError
+                ?(
+                    <div>
+                        <Polls 
+                            polls={this.state.polls}
+                            path={this.props.location.pathname}
+                         />
+                    </div>
+                )
+                :(
+                    <NotFound/>
+                )
             )
         );
     }

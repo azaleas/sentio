@@ -9,6 +9,8 @@ import Poll from './../components/Poll';
 
 class PollContainer extends Component {
 
+    /*Single Poll Container*/
+
     constructor(props) {
         super(props);
         this.state = {
@@ -20,8 +22,15 @@ class PollContainer extends Component {
         }
     }
 
+    componentWillUnmount() {
+        clearInterval(this.pollDataTimer);
+    }
+
     componentDidMount() {
         this.getPoll();
+        this.pollDataTimer = setInterval(() => {
+            this.getPoll();
+        }, 5000);
     }
 
     getPoll = () => {
@@ -81,7 +90,6 @@ class PollContainer extends Component {
     }
 
     render() {
-        console.log(this.state.poll);
         return (
             !this.state.fetched
             ?(
