@@ -86,17 +86,25 @@ class PollsViewSet(viewsets.ModelViewSet):
                 ip = get_ip(request)
                 if request.user.is_authenticated:
                     user = request.user
+                    try:
+                        vote = Vote.objects.get(
+                            Q(question=questionpk),
+                            Q(vote_author=user)
+                        )
+
+                    except Vote.DoesNotExist:
+                        vote = None
                 else:
                     user = None
+                    try:
+                        vote = Vote.objects.get(
+                            Q(question=questionpk),
+                            Q(voter_ip=ip),
+                            Q(vote_author__isnull=True)
+                        )
 
-                try:
-                    vote = Vote.objects.get(
-                        Q(question=questionpk),
-                        Q(vote_author=user) | Q(voter_ip=ip)
-                    )
-
-                except Vote.DoesNotExist:
-                    vote = None
+                    except Vote.DoesNotExist:
+                        vote = None
 
                 if vote:
                     return Response({"detail": "You already voted."},
@@ -104,7 +112,7 @@ class PollsViewSet(viewsets.ModelViewSet):
                 else:
                     # Increase vote count
                     choice.vote += 1
-                    choice.save() 
+                    choice.save()
                     vote = Vote.objects.create(
                         question = question,
                         vote_author = user,
