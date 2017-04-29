@@ -2,6 +2,9 @@
     height: 97%;
     height: 97vh;
 }
+.grid {
+    margin: 0 !important;
+}
 .app-wrapper {
     height: calc(87% - 2em);
     height: calc(87vh - 2em);
@@ -10,7 +13,7 @@
 }
 
 .app-label span{
-    margin: 0em 2em;
+    margin: 0em 1em;
     font-size: 1.35em;
 }
 
