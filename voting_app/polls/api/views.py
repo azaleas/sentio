@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 from rest_framework import viewsets, status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.decorators import detail_route, list_route
@@ -32,6 +33,7 @@ class PollsViewSet(viewsets.ModelViewSet):
 
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    authentication_classes = [TokenAuthentication, ]
     permission_classes=[IsAuthenticatedCustom, ]
 
     def create(self, request, *args, **kwargs):
@@ -82,7 +84,6 @@ class PollsViewSet(viewsets.ModelViewSet):
                                     status=status.HTTP_404_NOT_FOUND)
 
                 #Check if the user/ip is voted before
-
                 ip = get_ip(request)
                 if request.user.is_authenticated:
                     user = request.user

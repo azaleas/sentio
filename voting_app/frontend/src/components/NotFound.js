@@ -7,7 +7,7 @@ const NotFound = ({ className }) => {
     return (
        <div className="ui negative message center">
             <div className="header">404</div>
-            <p>Nothing was found here. Go to <Link to="/">main</Link>.</p>
+            <p>Nothing was found here. Go to <Link to="/">main.</Link></p>
         </div> 
     );
 };

@@ -66,8 +66,17 @@ SITE_ID = 1
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_ADAPTER = 'polls.adapter.AccountAdapter'
+# REST_SESSION_LOGIN = False
 
-LOGIN_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
+# LOGIN_REDIRECT_URL = '/close'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

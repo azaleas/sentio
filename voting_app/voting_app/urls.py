@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^api/v1/', include('polls.api.urls', namespace='api')),
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include(providers_urlpatterns)),
+    url(r'^close/$', TemplateView.as_view(template_name='close.html')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/twitter/$', TwitterLogin.as_view(), name='twitter_login'),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),

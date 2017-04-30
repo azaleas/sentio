@@ -21,6 +21,8 @@ SECRET_KEY = get_secret('SECRET_KEY', DEBUG)
 # Dev Email
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
+
+# LOGIN_REDIRECT_URL = 'http://localhost:3000/'
  
 #########################################################
 # Activate django-debug-toolbar if it is installed

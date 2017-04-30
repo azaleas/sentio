@@ -14,7 +14,6 @@ class Api{
         else{
             this.token = localStorage.getItem('token');
         }
-        console.log(this.token);
     }
 
     /*Fetchind the Data*/
@@ -49,10 +48,13 @@ class Api{
 
     postVote(quesitonId, choiceId){
         let URL = `${API_STEM}/polls/${quesitonId}/vote/`;
-        let csrfToken = cookies.get('csrftoken');
-        let config = {
-            headers: {"X-CSRFToken": csrfToken},
-        };
+        let config = {};
+
+        if(this.isLoggedIn()){
+            config = {
+                headers: {"Authorization": "Token " + this.token},
+            };
+        }
 
         return axios.post(
                 URL, 
@@ -71,14 +73,13 @@ class Api{
                 }
                 else{
                     console.warn(error);
-                    console.warn(error.response);
                 }
             })
     }
 
     /*Authentication*/
     
-    handleLogin(username, password){
+    /*handleLogin(username, password){
         
         let URL = `${API_STEM_AUTH}/login/`;
 
@@ -99,6 +100,7 @@ class Api{
             let token = response.data.key;
             localStorage.setItem('token', token);
             this.token = token;
+            localStorage.setItem('username', username);
             return 'success';
         })
         .catch((error) => {
@@ -110,16 +112,61 @@ class Api{
                 console.warn(error.response);
             }
         })
+    }*/
+
+    handleTwitterLogin(){
+        let URL = `${API_STEM_AUTH}/twitter/`;
+
+        let access_token = localStorage.getItem('oath_token');
+        let token_secret = localStorage.getItem('oauth_secret');
+        if(access_token && token_secret){
+            return axios.post(
+                    URL, 
+                    {
+                        access_token,
+                        token_secret
+                    },
+                    // config
+                )
+                .then((response) => {
+                    let token = response.data.key;
+                    localStorage.setItem('token', token);
+                    this.token = token;
+                    localStorage.removeItem('oath_token');
+                    localStorage.removeItem('oauth_secret');
+
+                    return 'success';
+                })
+                .catch((error) => {
+                    console.warn(error.response);
+                })
+        }
+        else{
+            let promise = new Promise((resolve, reject) =>{
+                resolve('error');
+            });
+            return promise;
+        }
+    }
+
+    saveTwitterTokens(oath_token, oauth_secret, user){
+        localStorage.removeItem('oath_token');
+        localStorage.removeItem('oauth_secret');
+        localStorage.removeItem('user');
+        localStorage.setItem('oath_token', oath_token);
+        localStorage.setItem('oauth_secret', oauth_secret);
+        localStorage.setItem('user', user);
     }
 
     handleLogout(){
+        localStorage.removeItem('oath_token');
+        localStorage.removeItem('oauth_secret');
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         this.token = null;
         let URL = `${API_STEM_AUTH}/logout/`;
-        let csrfToken = cookies.get('csrftoken');
         let config = {
             headers: {
-                "X-CSRFToken": csrfToken,
                 "Content-Type": "application/x-www-form-urlencoded",
             },
         };
@@ -128,12 +175,16 @@ class Api{
             config
         )
         .catch((error) => {
-            console.log(error.response);
+            console.warn(error.response);
         })
     }
 
     isLoggedIn(){
         return !!this.token;
+    }
+
+    getUsername(){
+        return localStorage.getItem('user');
     }
 }
 

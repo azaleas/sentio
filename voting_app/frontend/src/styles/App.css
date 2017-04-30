@@ -49,3 +49,7 @@
 .chart-wrapper {
     width: 80% !important;
 }
+
+.user--loading {
+    padding: 0 30px !important;
+}
