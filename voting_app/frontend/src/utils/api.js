@@ -1,7 +1,6 @@
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
-const cookies = new Cookies(document.cookies);
 const API_STEM = '/api/v1';
 const API_STEM_AUTH = '/rest-auth';
 
