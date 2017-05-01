@@ -45,6 +45,23 @@ class Api{
             });
     }
 
+    fetchMyPolls(){
+        let URL = `${API_STEM}/polls/mypolls`;
+        let config = {
+                headers: {"Authorization": "Token " + this.token},
+            };
+        return axios.get(URL, config)
+            .then((response) => response.data)
+            .catch((error) => {
+                if (error.response.status === 404) {
+                    return error.response.status;
+                }
+                else{
+                    console.warn("Error in fetchMyPolls", error);
+                }
+            });            
+    }
+
     postVote(quesitonId, choiceId){
         let URL = `${API_STEM}/polls/${quesitonId}/vote/`;
         let config = {};
@@ -73,6 +90,23 @@ class Api{
                 else{
                     console.warn(error);
                 }
+            })
+    }
+
+    deletePoll(quesitonId){
+        let URL = `${API_STEM}/polls/${quesitonId}/`;
+        let config = {
+            headers: {"Authorization": "Token " + this.token},
+        };
+        return axios.delete(
+                URL, 
+                config
+            )
+            .then((response) => {
+                return response.status;
+            })
+            .catch((error) => {
+                console.warn(error);
             })
     }
 
