@@ -7,6 +7,7 @@ import {api} from './../utils/Api';
 
 import NotFound from './../components/NotFound';
 import MyPoll from './../components/MyPoll';
+import EditPoll from './../components/EditPoll';
 
 
 class MyPollContainer extends Component {
@@ -21,6 +22,7 @@ class MyPollContainer extends Component {
             fetched: false,
             isError: false,
             voted: false,
+            editPoll: false,
             pollDeleted: false,
         }
     }
@@ -32,7 +34,7 @@ class MyPollContainer extends Component {
     componentDidMount() {
         this.getPoll();
         this.pollDataTimer = setInterval(() => {
-            if(!this.state.pollDeleted){
+            if(!this.state.editPoll && (!this.state.pollDeleted || !this.state.editPoll)){
                 this.getPoll();
             }
         }, 5000);
@@ -94,6 +96,12 @@ class MyPollContainer extends Component {
         }
     }
 
+    onEdit = (event) =>{
+        this.setState({
+            editPoll: true,
+        })
+    }
+
     onDelete = (event) =>{
         api.deletePoll(this.questionId)
             .then((response) => {
@@ -123,14 +131,23 @@ class MyPollContainer extends Component {
                     !this.state.isError
                     ?(
                         <div>
-                            <MyPoll 
-                                poll={this.state.poll}
-                                totalVotes={this.state.totalVotes}
-                                onVoteSelectChange={this.onVoteSelectChange}
-                                onVote={this.onVote}
-                                voted={this.state.voted}
-                                onDelete={this.onDelete}
-                            />
+                            {
+                                this.state.editPoll
+                                ?(
+                                    <EditPoll poll={this.state.poll}/>
+                                )
+                                :(
+                                    <MyPoll 
+                                        poll={this.state.poll}
+                                        totalVotes={this.state.totalVotes}
+                                        onVoteSelectChange={this.onVoteSelectChange}
+                                        onVote={this.onVote}
+                                        voted={this.state.voted}
+                                        onEdit={this.onEdit}
+                                        onDelete={this.onDelete}
+                                    />
+                                )
+                            }
                         </div>
                     )
                     :(

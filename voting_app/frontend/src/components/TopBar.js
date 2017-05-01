@@ -87,6 +87,12 @@ class TopBar extends Component {
                                 </div>
                                 <div className="item">
                                     <Link 
+                                        to="/create">
+                                        New Poll
+                                    </Link>
+                                </div>
+                                <div className="item">
+                                    <Link 
                                         to="/logout">
                                         Logout
                                     </Link>
