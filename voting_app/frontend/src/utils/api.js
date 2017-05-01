@@ -93,8 +93,8 @@ class Api{
             })
     }
 
-    deletePoll(quesitonId){
-        let URL = `${API_STEM}/polls/${quesitonId}/`;
+    deletePoll(questionId){
+        let URL = `${API_STEM}/polls/${questionId}/`;
         let config = {
             headers: {"Authorization": "Token " + this.token},
         };
@@ -108,6 +108,44 @@ class Api{
             .catch((error) => {
                 console.warn(error);
             })
+    }
+
+    pollUpdate(questionId, title, choices){
+        let URL = `${API_STEM}/polls/${questionId}/`;
+        let config = {
+            headers: {"Authorization": "Token " + this.token},
+        };
+
+        let choicesOrganized = [];
+
+        if(choices.length > 0){
+            choicesOrganized = choices.map((choice) => {
+                return {
+                    "choice_text": choice
+                }
+            })
+        }
+
+        let data = {
+            question_text: title,
+            choices: choicesOrganized,
+        }
+
+        return axios.put(
+                URL, 
+                data,
+                config
+            )
+            .then((response) => {
+                let data = {
+                    status: response.status,
+                    poll: response.data,
+                }
+                return data;
+            })
+            .catch((error) => {
+                console.warn(error);
+            })    
     }
 
     /*Authentication*/

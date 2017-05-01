@@ -23,6 +23,7 @@ class MyPollContainer extends Component {
             isError: false,
             voted: false,
             editPoll: false,
+            pollUpdated: false,
             pollDeleted: false,
         }
     }
@@ -114,6 +115,24 @@ class MyPollContainer extends Component {
             })
     }
 
+    onPollUpdate = (title, choices) =>{
+        api.pollUpdate(this.questionId, title, choices)
+            .then((response) =>{
+                if(response.status === 200){
+                    this.setState({
+                        pollUpdated: true,
+                        poll: response.poll,
+                    })
+                }
+            })
+    }
+
+    editFinish = () =>{
+        this.setState({
+            editPoll: false,
+        })
+    }
+
     render() {
         return (
             this.state.pollDeleted
@@ -134,7 +153,11 @@ class MyPollContainer extends Component {
                             {
                                 this.state.editPoll
                                 ?(
-                                    <EditPoll poll={this.state.poll}/>
+                                    <EditPoll 
+                                        poll={this.state.poll}
+                                        onPollUpdate={this.onPollUpdate}
+                                        pollUpdated={this.state.pollUpdated}
+                                        goBack={this.editFinish}/>
                                 )
                                 :(
                                     <MyPoll 

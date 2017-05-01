@@ -77,6 +77,21 @@ class EditPoll extends Component {
         });
 
         if(choiceErrors.length) return;
+
+        this.props.onPollUpdate(this.state.title, this.state.choices);
+        this.setState({
+            choices: [],
+            choicesCounter: 0,
+        })
+    }
+
+    goBack = (event) =>{
+        event.preventDefault();
+        this.setState({
+            choices: [],
+            choicesCounter: 0,
+        })
+        this.props.goBack();
     }
 
     validate = (choices, title) => {
@@ -124,7 +139,6 @@ class EditPoll extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="ui centered grid">
                 <div className="row">
@@ -178,7 +192,26 @@ class EditPoll extends Component {
                                     type="submit" 
                                     className="ui button small" 
                                     value="Submit"/>
+                                <button 
+                                    onClick={this.goBack}
+                                    className="ui button small">
+                                    Back
+                                </button>
                             </form>
+                            {
+                                this.props.pollUpdated
+                                ? (
+                                <div className="ui icon success message mini">
+                                    <i className="warning circle icon"></i>
+                                        <div className="content">
+                                            <div className="header">
+                                                Poll Updated.
+                                            </div>
+                                        </div>
+                                </div>
+                                )
+                                :(<p></p>)
+                            }
                         </div>
                     </div>
                 </div>
@@ -190,6 +223,9 @@ class EditPoll extends Component {
 EditPoll.propTypes = {
     className: PropTypes.string,
     poll: PropTypes.object,
+    onPollUpdate: PropTypes.func,
+    pollUpdated: PropTypes.bool,
+    goBack: PropTypes.func,
 };
 
 export default EditPoll;
