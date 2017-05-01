@@ -125,7 +125,6 @@ class Api{
                         access_token,
                         token_secret
                     },
-                    // config
                 )
                 .then((response) => {
                     let token = response.data.key;
