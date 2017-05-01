@@ -43,10 +43,8 @@ class PollsAPITestCase(APITestCase):
     # HELPER FUNCTIONS
 
     def login(self):
-        self.client.login(
-            username="testuser",
-            password="testuser",
-        )
+        user = User.objects.get(username='testuser')
+        self.client.force_authenticate(user=user)
 
 
     def vote(self):
@@ -163,10 +161,7 @@ class PollsAPITestCase(APITestCase):
         """
         Test if logged in user can vote.
         """
-        self.client.login(
-            username="testuser",
-            password="testuser",
-        )
+        self.login()
 
         vote = self.vote_and_test()
 
@@ -192,7 +187,7 @@ class PollsAPITestCase(APITestCase):
         Test if my polls returns 403 if not logged in
         """
         response = self.client.get('/api/v1/polls/mypolls/')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
     def test_mypolls(self):
         """
@@ -223,7 +218,7 @@ class PollsAPITestCase(APITestCase):
         Test if we cant create a new poll if not authenticated
         """
         response = self.create_new_poll()
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
         
     def test_update_poll(self):
         """
@@ -240,7 +235,7 @@ class PollsAPITestCase(APITestCase):
     def test_cant_update_poll_if_not_authenticated(self):
 
         response = self.update_poll()
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
     def test_cant_update_others_polls(self):
 
@@ -281,7 +276,7 @@ class PollsAPITestCase(APITestCase):
 
         data = self.delete_poll()
         response = data['response']
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
     def test_cant_delete_others_poll(self):
 
