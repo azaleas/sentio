@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import {Doughnut} from 'react-chartjs-2';
 import { defaults } from 'react-chartjs-2';
 
+import {ShareButtons} from 'react-share';
+
+const {TwitterShareButton} = ShareButtons;
+
 defaults.global.defaultFontFamily = "'Lato', 'Helvetica Neue', 'Helvetica', sans-serif";
 defaults.global.legend.labels.fontSize = 14;
 defaults.global.legend.labels.padding = 20;
@@ -52,6 +56,13 @@ const Poll = (props) => {
         }]
     }
 
+    const shareUrl = window.location.protocol 
+                    + "//" 
+                    + window.location.host
+                    + "/polls/"
+                    +  props.poll.id;
+    const title = 'Sentio - ' + props.poll.question_text;
+
     return (
         <div>
             <h2 className="ui center aligned icon header tiny">
@@ -88,6 +99,14 @@ const Poll = (props) => {
                                 {props.totalVotes}
                             </a>
                     </div>
+                    <TwitterShareButton
+                        url={shareUrl}
+                        title={title}>
+                        <button 
+                            className="ui button olive">
+                            <i className="twitter icon"></i> Share
+                        </button>
+                    </TwitterShareButton>
                     <button 
                         onClick={props.onEdit}
                         className="ui button primary">

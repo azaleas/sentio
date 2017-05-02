@@ -148,6 +148,40 @@ class Api{
             })    
     }
 
+    createPoll(title, choices){
+        let URL = `${API_STEM}/polls/`;
+        let config = {
+            headers: {"Authorization": "Token " + this.token},
+        };
+
+        let choicesOrganized = [];
+
+        if(choices.length > 0){
+            choicesOrganized = choices.map((choice) => {
+                return {
+                    "choice_text": choice
+                }
+            })
+        }
+
+        let data = {
+            question_text: title,
+            choices: choicesOrganized,
+        }
+
+        return axios.post(
+                URL, 
+                data,
+                config
+            )
+            .then((response) => {
+                return response.status;
+            })
+            .catch((error) => {
+                console.warn(error);
+            })
+    }
+
     /*Authentication*/
     
     /*handleLogin(username, password){

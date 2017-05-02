@@ -13,6 +13,7 @@ import PollsContainer from './../containers/PollsContainer';
 import PollContainer from './../containers/PollContainer';
 import MyPollsContainer from './../containers/MyPollsContainer';
 import MyPollContainer from './../containers/MyPollContainer';
+import CreatePollContainer from './../containers/CreatePollContainer';
 
 import LoginTwitter from './../containers/LoginTwitter';
 import Logout from './../containers/Logout';
@@ -36,6 +37,7 @@ const App = () => (
                 />
                 <Authenticated exact path="/mypolls" component={MyPollsContainer} />
                 <Authenticated exact path="/mypolls/:questionId" component={MyPollContainer} />
+                <Authenticated exact path="/create" component={CreatePollContainer} />
                 <Route path="/twitter_logged_in/" component={LoginTwitter} />
                 <Route path="/logout" component={Logout} />
                 <Route path="*" component={NotFound} />
