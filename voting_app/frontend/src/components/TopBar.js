@@ -81,6 +81,12 @@ class TopBar extends Component {
                                 </div>
                                 <div className="item">
                                     <Link 
+                                        to="/">
+                                        Polls
+                                    </Link>
+                                </div>
+                                <div className="item">
+                                    <Link 
                                         to="/mypolls">
                                         My Polls
                                     </Link>
@@ -100,27 +106,33 @@ class TopBar extends Component {
                             </div>
                         )
                         : (
-                            <div className="right menu">
-                                {
-                                    this.state.fetchingToken
-                                    ?(
-                                        <div className="item user--loading">
-                                            <div className="ui active inverted dimmer">
-                                                <div className="ui loader"></div>
-                                            </div>
-                                            <Redirect push to="/" />
+                            this.state.fetchingToken
+                            ?(
+                                <div className="right menu">
+                                    <div className="item user--loading">
+                                        <div className="ui active inverted dimmer">
+                                            <div className="ui loader"></div>
                                         </div>
-                                    )
-                                    :(
-                                        <div className="item">
-                                            <a
-                                            style={{cursor: "pointer"}}
-                                            onClick={this.twitterLoginStart}
-                                            >Login</a>
-                                        </div>
-                                    )
-                                }
-                            </div>
+                                        <Redirect push to="/" />
+                                    </div>
+                                </div>
+                            )
+                            :(
+                                <div className="right menu">
+                                    <div className="item">
+                                        <Link 
+                                            to="/">
+                                            Polls
+                                        </Link>
+                                    </div>
+                                    <div className="item">
+                                        <a
+                                        style={{cursor: "pointer"}}
+                                        onClick={this.twitterLoginStart}
+                                        >Login</a>
+                                    </div>
+                                </div>
+                            )
                         )
                     }
                 </div>
