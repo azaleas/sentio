@@ -5,7 +5,7 @@ import Router from 'react-router-dom/BrowserRouter';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 
-import App from './components/App';
+import App from './containers/App';
 import '../semantic/dist/semantic.css';
 import './styles/index.css';
 
