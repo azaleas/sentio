@@ -10,55 +10,6 @@ class TopBar extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            fetchingToken: false,
-        }
-    }
-
-    twitterLoginStart = (event) => {
-
-        localStorage.removeItem('oath_token');
-        localStorage.removeItem('oauth_secret');
-        localStorage.removeItem('user');
-            
-        // http://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen
-        let dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
-        let dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
-
-        let width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-        let height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-        let left = ((width / 2) - (570 / 2)) + dualScreenLeft;
-        let top = ((height / 2) - (520 / 2)) + dualScreenTop;
-        window.open(
-            'http://votingapp.com:8000/auth/twitter/login', 
-            '_blank', 
-            'location=yes,height=570,width=520,scrollbars=yes,status=yes,top=' + top + ',left=' + left + ''
-        );
-        this.twitterLogin();
-    }
-
-    twitterLogin(){
-        /*Remove login text while loggging in is in process*/
-        let user = localStorage.getItem('user');
-        if(user !== '' && typeof user !== 'undefined' && user !== null){
-            this.setState({
-                fetchingToken: true,
-            });
-        }
-        api.handleTwitterLogin()
-            .then((response) =>{
-                if(response === 'error'){
-                    setTimeout(() => {
-                        this.twitterLogin();
-                    }, 50);
-                }
-                else if(response === 'success'){
-                    this.setState({
-                        fetchingToken: false,
-                    });
-                }
-            })
     }
 
     render() {
@@ -75,7 +26,7 @@ class TopBar extends Component {
                     {
                         api.isLoggedIn()
                         ? (
-                            <div className="right menu">
+                            <div className="right menu" id="desktop-menu">
                                 <div className="item">
                                     Hello, {api.getUsername()}
                                 </div>
@@ -106,9 +57,9 @@ class TopBar extends Component {
                             </div>
                         )
                         : (
-                            this.state.fetchingToken
+                            this.props.fetchingToken
                             ?(
-                                <div className="right menu">
+                                <div className="right menu" id="desktop-menu">
                                     <div className="item user--loading">
                                         <div className="ui active inverted dimmer">
                                             <div className="ui loader"></div>
@@ -118,7 +69,7 @@ class TopBar extends Component {
                                 </div>
                             )
                             :(
-                                <div className="right menu">
+                                <div className="right menu" id="desktop-menu">
                                     <div className="item">
                                         <Link 
                                             to="/">
@@ -128,12 +79,21 @@ class TopBar extends Component {
                                     <div className="item">
                                         <a
                                         style={{cursor: "pointer"}}
-                                        onClick={this.twitterLoginStart}
+                                        onClick={this.props.twitterLoginStart}
                                         >Login</a>
                                     </div>
                                 </div>
                             )
                         )
+                    }
+                    {
+                        <div className="right menu" id="mobile-menu">
+                            <div 
+                                onClick={this.props.toggleVisibility}
+                                className="nav-button item">
+                                <i className="align right icon"></i>
+                            </div>
+                        </div>
                     }
                 </div>
                 <div className="ui divider"/>
@@ -144,6 +104,9 @@ class TopBar extends Component {
 
 TopBar.propTypes = {
     className: PropTypes.string,
+    toggleVisibility: PropTypes.func,
+    twitterLoginStart: PropTypes.func,
+    fetchingToken: PropTypes.bool,
 };
 
 export default TopBar;

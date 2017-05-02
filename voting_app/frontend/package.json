@@ -13,6 +13,7 @@
     "react-router-dom": "^4.1.1",
     "react-share": "^1.13.2",
     "semantic-ui": "^2.2.10",
+    "semantic-ui-react": "^0.68.2",
     "universal-cookie": "^2.0.5"
   },
   "devDependencies": {

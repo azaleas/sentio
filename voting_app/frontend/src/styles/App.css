@@ -53,3 +53,144 @@
 .user--loading {
     padding: 0 30px !important;
 }
+
+.pushable .user--loading {
+    padding: 10px 30px !important;
+}
+
+#mobile-menu {
+    display: none !important;
+}
+
+@media only screen and (max-height: 1250px){
+    .app-wrapper {
+        height: calc(85% - 2em);
+        height: calc(85vh - 2em);
+    }
+}
+
+@media only screen and (max-height: 1050px){
+    .app-wrapper {
+        height: calc(83% - 2em);
+        height: calc(83vh - 2em);
+    }
+}
+
+@media only screen and (min-width: 1024px){
+    .ui.left.visible.sidebar, .ui.right.visible.sidebar {
+        box-shadow: none!important;
+    }
+    .ui.right.scale.down.sidebar {
+        -webkit-transform: translate3d(100%, 0, 0)!important;
+        transform: translate3d(100%, 0, 0)!important;
+    }
+    .ui.scale.down.right.sidebar ~ .pusher {
+        -webkit-transform-origin: 25% 50%!important;
+        -ms-transform-origin: 25% 50%!important;
+        transform-origin: 25% 50%!important;
+    }
+    .ui.visible.scale.down.sidebar ~ .pusher {
+        -webkit-transform: scale(1)!important;
+        -ms-transform: scale(1)!important;
+        transform: scale(1)!important;
+    }
+}
+
+@media only screen and (max-width: 1023px){
+    #desktop-menu {
+        display: none !important;
+    }
+    #mobile-menu {
+        display: flex !important;
+    }
+}
+
+@media only screen and (max-height: 920px){
+    .app-wrapper {
+        height: calc(80% - 2em);
+        height: calc(80vh - 2em);
+    }
+}
+
+@media only screen and (max-height: 780px){
+    .app-wrapper {
+        height: calc(78% - 2em);
+        height: calc(78vh - 2em);
+    }
+}
+
+@media only screen and (max-width: 767px){
+
+    #choiceSelect {
+        min-width: 100%;
+        max-width: 200px;
+    }
+
+    .poll-selectwrapper .button {
+        width: 200px !important;
+        max-width: 200px !important;
+    }
+    .poll-selectwrapper .button:not(:first-child),
+    .poll-selectwrapper .SocialMediaShareButton {
+        margin-top: 5px !important;
+    }
+
+    
+    .ui.form .button,
+    .ui.form .buttons {
+        width: 200px !important;
+        max-width: 200px !important;
+        display: block !important;   
+        margin: 5px auto !important;
+        -webkit-border-radius: 0.25rem !important;
+                border-radius: 0.25rem !important;
+    }
+}
+
+@media only screen and (max-height: 680px){
+    .app-wrapper {
+        height: calc(75% - 2em);
+        height: calc(75vh - 2em);
+    }
+}
+
+@media only screen and (max-height: 580px){
+    .app-wrapper {
+        height: calc(73% - 2em);
+        height: calc(73vh - 2em);
+    }
+}
+
+@media only screen and (max-height: 540px){
+    .app-wrapper {
+        height: calc(70% - 2em);
+        height: calc(70vh - 2em);
+    }
+}
+
+@media only screen and (max-height: 480px){
+    .app-wrapper {
+        height: calc(68% - 2em);
+        height: calc(68vh - 2em);
+    }
+}
+
+@media only screen and (max-width: 400px){
+    .app-label span {
+        margin: 0 !important;
+        font-size: 1.1em !important;
+    }
+}
+
+@media only screen and (max-width: 330px){
+    .poll-selectwrapper .button {
+        width: 150px !important;
+        max-width: 150px !important;
+    }
+    
+    .ui.form .button,
+    .ui.form .buttons {
+        width: 150px !important;
+        max-width: 150px !important;
+    }
+}
