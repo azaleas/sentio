@@ -85,8 +85,8 @@ const Poll = (props) => {
                             <i className="heart icon"></i> Vote
                         </div>
                             <a className="ui basic label">
-                            {props.totalVotes}
-                        </a>
+                                {props.totalVotes}
+                            </a>
                     </div>
                     {
                         props.voted

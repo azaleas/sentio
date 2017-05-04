@@ -194,7 +194,7 @@ class EditPoll extends Component {
                                     value="Submit"/>
                                 <button 
                                     onClick={this.goBack}
-                                    className="ui button small">
+                                    className="ui button small goback">
                                     Back
                                 </button>
                             </form>

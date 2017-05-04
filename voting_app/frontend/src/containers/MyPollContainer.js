@@ -106,7 +106,6 @@ class MyPollContainer extends Component {
     onDelete = (event) =>{
         api.deletePoll(this.questionId)
             .then((response) => {
-                console.log(response);
                 if(response === 204){
                     this.setState({
                         pollDeleted: true,

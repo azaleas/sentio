@@ -21,7 +21,7 @@ const TopBar = (props) =>  {
                     api.isLoggedIn()
                     ? (
                         <div className="right menu" id="desktop-menu">
-                            <div className="item">
+                            <div className="item hellouser">
                                 Hello, {api.getUsername()}
                             </div>
                             <div className="item">

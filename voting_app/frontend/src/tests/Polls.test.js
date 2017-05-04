@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PollsContainer from './../containers/PollsContainer';
+import Polls from './../components/Polls';
 import {api} from './../utils/Api';
 
 jest.mock('./../utils/Api');
@@ -93,5 +94,39 @@ describe('PollsContainer', () => {
                     wrapper.state().polls
                 ).toEqual(data);
             });
-    })
+    });
+
+    describe('Polls Component', ()=> {
+        let polls;
+        beforeEach(() => {
+            polls = shallow(
+                    <Polls polls={data}
+                           path={pathname.pathname} />
+            );
+        });
+        
+        it('renders without crashing', () => {
+            polls;
+        });
+
+        it('should have `div` element with with className `poll-single`', () =>{
+            expect(
+                polls.find(".poll-single").exists()
+            ).toBe(true); 
+        });
+
+        it('should have `div` element with with `question_text` as value', () =>{
+            const question_texts = polls.find('.poll-single').map(node=>node.text());
+            expect(
+                question_texts
+            ).toEqual([data[0]['question_text']]); 
+        });
+
+        it('should have `Link` element with path to a single poll', () =>{
+            let link = polls.find('Link').first();
+            expect(
+                link.props().to
+            ).toEqual(`${pathname.pathname}/${data[0]['id']}`)
+        })
+    });
 })  

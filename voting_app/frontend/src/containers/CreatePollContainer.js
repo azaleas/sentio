@@ -197,7 +197,7 @@ class CreatePollContainer extends Component {
                                         value="Submit"/>
                                     <button 
                                         onClick={this.cancelCreate}
-                                        className="ui button small">
+                                        className="ui button small cancelbutton">
                                         Cancel
                                     </button>
                                 </form>
