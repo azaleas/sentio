@@ -2,6 +2,8 @@ from django.conf import settings
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.models import SocialToken
 
+from polls.variables import twitter_login_url
+
 class AccountAdapter(DefaultAccountAdapter):
 
     def get_login_redirect_url(self, request):
@@ -15,5 +17,5 @@ class AccountAdapter(DefaultAccountAdapter):
         get_vars = "user_oauth_token=" + user_oauth_token \
                     + "&user_oauth_verifier=" + user_oauth_verifier \
                     + "&user=" + user.username
-        path = "http://localhost:3000/twitter_logged_in?" + get_vars
+        path = twitter_login_url + "?" + get_vars
         return path

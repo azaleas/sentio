@@ -1,0 +1,1 @@
+twitter_login_url = "http://localhost:3000/twitter_logged_in"
