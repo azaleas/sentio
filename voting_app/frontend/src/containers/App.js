@@ -9,6 +9,7 @@ import Redirect from 'react-router-dom/Redirect';
 import { Sidebar, Icon, Menu, Segment } from 'semantic-ui-react';
 
 import {api} from './../utils/Api';
+import VARIABLES from './../env/variables';
 
 import Authenticated from './../components/Authenticated';
 
@@ -70,9 +71,9 @@ class App extends Component {
         let left = ((width / 2) - (570 / 2)) + dualScreenLeft;
         let top = ((height / 2) - (520 / 2)) + dualScreenTop;
         window.open(
-            'http://votingapp.com:8000/auth/twitter/login', 
+            VARIABLES.TWITTER_LOGIN_URL, 
             '_blank', 
-            'location=yes,height=570,width=520,scrollbars=yes,status=yes,top=' + top + ',left=' + left + ''
+            'location=yes,height=400,width=400,scrollbars=yes,status=yes,top=' + top + ',left=' + left + ''
         );
         this.twitterLogin();
     }
