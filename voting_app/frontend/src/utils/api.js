@@ -18,7 +18,7 @@ class Api{
     /*Fetchind the Data*/
 
     fetchAllPolls(){
-        let URL = `${API_STEM}/polls`;
+        let URL = `${API_STEM}/polls/`;
         return axios.get(URL)
             .then((response) => response.data)
             .catch((error) => {
@@ -32,7 +32,7 @@ class Api{
     }
 
     fetchSinglePoll(id){
-        let URL = `${API_STEM}/polls/${id}`;
+        let URL = `${API_STEM}/polls/${id}/`;
         return axios.get(URL)
             .then((response) => response.data)
             .catch((error) => {
@@ -46,7 +46,7 @@ class Api{
     }
 
     fetchMyPolls(){
-        let URL = `${API_STEM}/polls/mypolls`;
+        let URL = `${API_STEM}/polls/mypolls/`;
         let config = {
                 headers: {"Authorization": "Token " + this.token},
             };

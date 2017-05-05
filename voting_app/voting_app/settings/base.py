@@ -141,6 +141,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+# React App
+
+FRONT_END_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+REACT_APP_DIR = os.path.join(FRONT_END_DIR, 'frontend')
+
+print('asd\n', REACT_APP_DIR)
+
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
