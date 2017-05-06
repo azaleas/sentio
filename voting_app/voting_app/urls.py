@@ -38,7 +38,7 @@ for provider in providers.registry.get_list():
 
 urlpatterns = [
     url(r'^api/v1/', include('polls.api.urls', namespace='api')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^sa_admin/', admin.site.urls),
     url(r'^auth/', include(providers_urlpatterns)),
     url(r'^close/$', TemplateView.as_view(template_name='close.html')),
     url(r'^rest-auth/', include('rest_auth.urls')),

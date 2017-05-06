@@ -147,8 +147,6 @@ FRONT_END_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 
 REACT_APP_DIR = os.path.join(FRONT_END_DIR, 'frontend')
 
-print('asd\n', REACT_APP_DIR)
-
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build', 'static'),
 ]
@@ -158,3 +156,4 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
