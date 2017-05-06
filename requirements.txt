@@ -1,2 +1,2 @@
 # For heroku or others, looking specifically for requirements.txt
--r requirements/prod.txt
+-r requirements/production.txt
