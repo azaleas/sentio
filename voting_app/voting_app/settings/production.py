@@ -12,11 +12,11 @@ ADMINS = [('azaleas', 'azaleas@2die4.com')]
 # Email
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config('EMAIL_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-SERVER_EMAIL = config('EMAIL_USER')
+SERVER_EMAIL = os.environ.get('EMAIL_USER')
 
 # Database
 
@@ -26,7 +26,7 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
