@@ -1,5 +1,25 @@
 from .base import *  # We import everything we have previously set up on base.py
  
+def get_secret(the_secret, debugging):
+    """
+    As a security measure, all secrets will be kept in a json file named
+    secrets.json. This file will not be managed by the version control
+    system, but will be available in our documentation repository or
+    as an attached file. The main goal of this is that this file should
+    not be viewable by no one except us or our team.
+    """
+    try:
+        secrets_file = os.path.join(BASE_DIR, 'settings', 'secrets.json')
+
+        secretjson = json.load(open(secrets_file))
+        if debugging:
+            return secretjson['local'][the_secret]
+        else:
+            return secretjson['production'][the_secret]
+    except Exception as e:
+        print("Something weird happened while retrieving a secret: {}".format(e))
+        sys.exit(-1)
+ 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
  

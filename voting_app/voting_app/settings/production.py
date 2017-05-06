@@ -12,12 +12,12 @@ ADMINS = [('azaleas', 'azaleas@2die4.com')]
 # Email
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = get_secret('EMAIL_USER', DEBUG)
-EMAIL_HOST_PASSWORD = get_secret('EMAIL_PASS', DEBUG)
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-SERVER_EMAIL = get_secret('EMAIL_USER', DEBUG)
- 
+SERVER_EMAIL = config('EMAIL_USER')
+
 # Database
 
 # Heroku: Update database configuration from $DATABASE_URL.
@@ -26,7 +26,7 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_secret('SECRET_KEY', DEBUG)
+SECRET_KEY = config('SECRET_KEY')
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
