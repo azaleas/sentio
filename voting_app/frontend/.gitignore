@@ -6,8 +6,7 @@
 # testing
 /coverage
 
-# production
-/build
+# production (will have to add this, for heroku)
 
 # misc
 .DS_Store
