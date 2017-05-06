@@ -157,3 +157,26 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+##########################################################
+# Set up logging directory
+##########################################################
+ 
+# set the directory where you want to write log files
+# this dir will be created if it does not exist
+# Django will die if it cannot be created
+# This is an example of an absolute path:
+# logsdir = os.path.realpath('/home/vagrant/logs')
+# This uses a dir 'logs' in your home directory (/home/vagrant in the example)
+logsdir = os.path.realpath(os.path.join(BASE_DIR, 'logs'))
+ 
+try:
+    os.stat(logsdir)
+except OSError:
+    print("mkdir %s..." % logsdir)
+    try:
+        os.mkdir(logsdir)
+    except OSError as e:
+        print("OSError({0}): {1}".format(e.errno, e.strerror))
+        print("Could not mkdir %s" % logsdir)
+        sys.exit(1)

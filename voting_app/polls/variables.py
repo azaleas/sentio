@@ -2,6 +2,7 @@
 # twitter_login_url = "http://localhost:3000/twitter_logged_in"
 
 # Local, React built in
-twitter_login_url = "http://localhost:8000/twitter_logged_in"
+# twitter_login_url = "http://localhost:8000/twitter_logged_in"
 
 # Prod
+twitter_login_url = "https://sentioapp.herokuapp.com/twitter_logged_in"
