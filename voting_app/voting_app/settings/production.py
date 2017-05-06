@@ -1,7 +1,7 @@
 from .base import *
  
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = False
  
 # CHANGE THE ALLOWED_HOSTS LIST TO FIT YOUR NEEDS
