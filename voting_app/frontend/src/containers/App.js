@@ -9,7 +9,7 @@ import Redirect from 'react-router-dom/Redirect';
 import { Sidebar, Icon, Menu, Segment } from 'semantic-ui-react';
 
 import {api} from './../utils/Api';
-import VARIABLES from './../env/variables';
+import VARIABLES from './../utils/variables';
 
 import Authenticated from './../components/Authenticated';
 
