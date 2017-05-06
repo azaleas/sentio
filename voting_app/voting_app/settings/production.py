@@ -34,16 +34,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-# React App
-
-FRONT_END_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
-
-STATICFILES_DIRS = [
-    os.path.join(REACT_APP_DIR, 'build', 'static'),
-]
-
 # LOGGING
 LOGGING = {
     'version': 1,
