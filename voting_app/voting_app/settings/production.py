@@ -11,11 +11,11 @@ ADMINS = [('azaleas', 'azaleas@2die4.com')]
 
 # Email
 EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_USER')
 SERVER_EMAIL = os.environ.get('EMAIL_USER')
 
 # Database
