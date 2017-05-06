@@ -10,13 +10,13 @@ ALLOWED_HOSTS = ['.sentioapp.herokuapp.com', 'localhost', '127.0.0.1', '[::1]']
 ADMINS = [('azaleas', 'azaleas@2die4.com')]
 
 # Email
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_USER')
-# SERVER_EMAIL = os.environ.get('EMAIL_USER')
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_USER')
+SERVER_EMAIL = os.environ.get('EMAIL_USER')
 
 # Database
 
