@@ -5,7 +5,7 @@ DEBUG = False
 TEMPLATE_DEBUG = False
  
 # CHANGE THE ALLOWED_HOSTS LIST TO FIT YOUR NEEDS
-ALLOWED_HOSTS = ['.sentioapp.herokuapp.com', ]
+ALLOWED_HOSTS = ['.sentioapp.herokuapp.com', 'localhost', '127.0.0.1', '[::1]']
 
 ADMINS = [('azaleas', 'azaleas@2die4.com')]
 
