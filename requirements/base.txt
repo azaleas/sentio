@@ -13,3 +13,4 @@ requests==2.13.0
 requests-oauthlib==0.8.0
 six==1.10.0
 sqlparse==0.2.3
+whitenoise==3.3.0
