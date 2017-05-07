@@ -11,6 +11,8 @@ Built with:
  - **React**
  - **Semantic UI**
 
-Hosted on [heroku](https://sentioapp.herokuapp.com)
-For API endpoints, see [here](https://github.com/azaleas/sentio/blob/master/API.md)
-For React readme, see [here](https://github.com/azaleas/sentio/blob/master/voting_app/frontend/README.md) 
+Hosted on [heroku](https://sentioapp.herokuapp.com).
+
+For API endpoints, see [here](https://github.com/azaleas/sentio/blob/master/API.md).
+
+For React readme, see [here](https://github.com/azaleas/sentio/blob/master/voting_app/frontend/README.md).
