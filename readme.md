@@ -10,6 +10,8 @@ Built with:
  - **Django allauth + Django rest auth**
  - **React**
  - **Semantic UI**
+ 
+For project overview and code details, see [here](https://azaleas.aerobatic.io/2017/05/07/sentio---a-voting-app/)
 
 Hosted on [heroku](https://sentioapp.herokuapp.com).
 
