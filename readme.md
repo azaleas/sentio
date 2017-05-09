@@ -58,6 +58,7 @@ Production:
  - setup the python runtime in runtime.txt
  - **requirements.txt** takes care of production requirement installs. 
  - Create env variables in Heroku for variables listed in settings/production.py: EMAIL_USER, EMAIL_PASS, SECRET_KEY, DATABASE_URL.
+ - Set DJANGO_SETTINGS_MODULE variable on heroku to voting_app.settings.production
  - add production url to ALLOWED_HOSTS.
  - Set ADMINS emails.
  - Add heroku domain as website domain in Django admin.
